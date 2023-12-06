@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:15.2-alpine
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.47
+    ports:
+      - '16686:16686'
+      - '14268:14268'

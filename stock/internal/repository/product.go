@@ -99,6 +99,59 @@ func (s ProductRepository) UpdateByID(ctx context.Context, productID uuid.UUID, 
 	return pr, nil
 }
 
+func (s ProductRepository) ReserveProducts(ctx context.Context, products []*domain.ProductReserveItem) error {
+
+	err := updateInTx(ctx, s.db, sql.LevelSerializable, func(ctx context.Context, tx *sqlx.Tx) error {
+		for _, rp := range products {
+			product, err := s.oneProductByIDInTx(ctx, rp.ProductId, tx)
+			if err != nil {
+				return err
+			}
+
+			if product.Quantity < rp.Quantity {
+				return fmt.Errorf("error reserving product id = %s (%s), existing quantity (%d) less than required (%d)", rp.ProductId, product.Name, product.Quantity, rp.Quantity)
+			}
+			product.Quantity -= rp.Quantity
+			_, err = tx.ExecContext(ctx, `
+				UPDATE product SET quantity = $1, modified_at = NOW() WHERE vip_bundle_id = $3
+			`, product.Quantity, rp.ProductId)
+
+			if err != nil {
+				return fmt.Errorf("could not update product: %w", err)
+			}
+		}
+
+		return nil
+	})
+
+	return err
+}
+
+func (s ProductRepository) CancelReserveProducts(ctx context.Context, products []*domain.ProductReserveItem) error {
+
+	err := updateInTx(ctx, s.db, sql.LevelSerializable, func(ctx context.Context, tx *sqlx.Tx) error {
+		for _, rp := range products {
+			product, err := s.oneProductByIDInTx(ctx, rp.ProductId, tx)
+			if err != nil {
+				return err
+			}
+
+			product.Quantity += rp.Quantity
+			_, err = tx.ExecContext(ctx, `
+				UPDATE product SET quantity = $1, modified_at = NOW() WHERE vip_bundle_id = $3
+			`, product.Quantity, rp.ProductId)
+
+			if err != nil {
+				return fmt.Errorf("could not update product: %w", err)
+			}
+		}
+
+		return nil
+	})
+
+	return err
+}
+
 func (s ProductRepository) oneProductByIDInTx(ctx context.Context, productID uuid.UUID, tx *sqlx.Tx) (domain.Product, error) {
 	var Product domain.Product
 	err := tx.GetContext(ctx, &Product, `

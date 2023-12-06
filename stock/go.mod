@@ -1,6 +1,6 @@
 module stock
 
-go 1.21.4
+go 1.21
 
 require (
 	github.com/ThreeDotsLabs/watermill v1.3.5

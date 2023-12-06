@@ -13,3 +13,8 @@ type Product struct {
 	CreatedAt  time.Time `json:"created_at" db:"created_at"`
 	ModifiedAt time.Time `json:"modified_at" db:"modified_at"`
 }
+
+type ProductReserveItem struct {
+	ProductId uuid.UUID
+	Quantity  int
+}
