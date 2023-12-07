@@ -22,7 +22,7 @@ func NewProductRepository(db *sqlx.DB) ProductRepository {
 	return ProductRepository{db: db}
 }
 
-func (s ProductRepository) AddProduct(ctx context.Context, product domain.Product) error {
+func (s ProductRepository) CreateProduct(ctx context.Context, product domain.Product) error {
 	_, err := s.db.NamedExecContext(ctx, `
 		INSERT INTO 
 		    Product (product_id, name, quantity, created_at, modified_at) 
@@ -113,7 +113,7 @@ func (s ProductRepository) ReserveProducts(ctx context.Context, products []*doma
 			}
 			product.Quantity -= rp.Quantity
 			_, err = tx.ExecContext(ctx, `
-				UPDATE product SET quantity = $1, modified_at = NOW() WHERE vip_bundle_id = $3
+				UPDATE product SET quantity = $1, modified_at = NOW() WHERE product_id = $2
 			`, product.Quantity, rp.ProductId)
 
 			if err != nil {

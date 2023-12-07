@@ -1,4 +1,4 @@
-package domain
+package products
 
 import (
 	"stock/pkg/types"

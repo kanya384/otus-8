@@ -8,7 +8,7 @@ import (
 
 func InitializeDatabaseSchema(db *sqlx.DB) error {
 	_, err := db.Exec(`
-		CREATE TABLE IF NOT EXISTS tickets (
+		CREATE TABLE IF NOT EXISTS product (
 			product_id UUID PRIMARY KEY,
 			name VARCHAR(255) NOT NULL,
 			quantity INT NOT NULL,

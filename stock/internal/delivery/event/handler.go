@@ -4,22 +4,26 @@ import (
 	"context"
 	"stock/internal/domain"
 
+	"github.com/ThreeDotsLabs/watermill/components/cqrs"
 	"github.com/google/uuid"
 )
 
 type Handler struct {
-	service Service
+	service  Service
+	eventBus *cqrs.EventBus
 }
 
 func NewHandler(
 	service Service,
+	eventBus *cqrs.EventBus,
 ) Handler {
 	if service == nil {
 		panic("missing service")
 	}
 
 	return Handler{
-		service: service,
+		service:  service,
+		eventBus: eventBus,
 	}
 }
 

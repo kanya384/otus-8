@@ -1,0 +1,1615 @@
+basePath: /
+definitions:
+  amofile.AmoFileListResponse:
+    properties:
+      count:
+        type: integer
+      list:
+        items:
+          $ref: '#/definitions/amofile.AmoFileResponse'
+        type: array
+    type: object
+  amofile.AmoFileResponse:
+    properties:
+      createdAt:
+        type: string
+      file:
+        type: string
+      id:
+        type: integer
+      leadId:
+        type: integer
+      modifiedAt:
+        type: string
+      path:
+        type: string
+    required:
+    - createdAt
+    - file
+    - id
+    - leadId
+    - modifiedAt
+    - path
+    type: object
+  amofile.MassDeleteRequest:
+    properties:
+      ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - ids
+    type: object
+  amofile.MassDeleteResponse:
+    properties:
+      deleted_ids:
+        items:
+          type: integer
+        type: array
+    required:
+    - deleted_ids
+    type: object
+  auth.SignInRequest:
+    properties:
+      login:
+        example: admin
+        minLength: 4
+        type: string
+      pass:
+        example: password
+        minLength: 5
+        type: string
+    type: object
+  cause.CauseResponse:
+    properties:
+      id:
+        type: integer
+      items:
+        items:
+          type: string
+        type: array
+      packet_ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  cause.CreateCauseRequest:
+    properties:
+      items:
+        items:
+          type: string
+        type: array
+      packet_ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  cause.UpdateCauseRequest:
+    properties:
+      items:
+        items:
+          type: string
+        type: array
+      packet_ids:
+        items:
+          type: integer
+        type: array
+    type: object
+  city.CityListResponse:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/moderation_internal_delivery_city.City'
+        type: array
+    required:
+    - list
+    type: object
+  client.ClientListResponse:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/moderation_internal_delivery_client.Client'
+        type: array
+    required:
+    - list
+    type: object
+  delivery.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  lead.ClientCauseEdit:
+    properties:
+      cause:
+        type: string
+    type: object
+  lead.Decision:
+    enum:
+    - approved
+    - not_approved
+    - disputable
+    - ""
+    type: string
+    x-enum-varnames:
+    - Approved
+    - NotApproved
+    - Disputable
+    - EmptyD
+  lead.FileResponse:
+    properties:
+      url:
+        type: string
+    type: object
+  lead.ItemDescription:
+    properties:
+      description:
+        type: string
+      status:
+        type: string
+    type: object
+  lead.LeadListResponse:
+    properties:
+      count:
+        type: integer
+      list:
+        items:
+          $ref: '#/definitions/lead.LeadResponse'
+        type: array
+    type: object
+  lead.LeadResponse:
+    properties:
+      actionDate:
+        type: string
+      cause:
+        type: string
+      cityId:
+        type: integer
+      cityName:
+        type: string
+      clientId:
+        type: integer
+      clientLeadsGrowth:
+        type: boolean
+      clientName:
+        type: string
+      clientReason:
+        type: string
+      comment:
+        type: string
+      createdAt:
+        type: string
+      decision:
+        $ref: '#/definitions/lead.Decision'
+      id:
+        type: integer
+      managerId:
+        type: integer
+      moderateAddDate:
+        type: string
+      moderatedAt:
+        type: string
+      moderatorId:
+        type: integer
+      modifiedAt:
+        type: string
+      packet:
+        type: string
+      price:
+        type: integer
+      processedToAmo:
+        $ref: '#/definitions/lead.ProcessingToAmoStatus'
+      status:
+        $ref: '#/definitions/lead.Status'
+      transferDate:
+        type: string
+    type: object
+  lead.ModeratorDecision:
+    properties:
+      cause:
+        type: string
+      comment:
+        type: string
+      decision:
+        type: string
+    type: object
+  lead.ProcessingToAmoStatus:
+    enum:
+    - not_processed
+    - processed
+    - error_processing
+    type: string
+    x-enum-varnames:
+    - NotProcessed
+    - Processed
+    - ErrorProcessing
+  lead.SetModeratorRequest:
+    properties:
+      moderator_id:
+        type: integer
+    type: object
+  lead.Status:
+    enum:
+    - moderating
+    - moderated
+    - exchange_to_zero
+    - rejected
+    - annul
+    - ""
+    type: string
+    x-enum-varnames:
+    - Moderating
+    - Moderated
+    - ExchangeToZero
+    - Rejected
+    - Annul
+    - Empty
+  moderation_internal_delivery_auth.SignInResponse:
+    properties:
+      refreshToken:
+        type: string
+      token:
+        type: string
+    type: object
+  moderation_internal_delivery_city.City:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  moderation_internal_delivery_client.Client:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  moderation_internal_delivery_packet.Packet:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - id
+    - name
+    type: object
+  packet.PacketListResponse:
+    properties:
+      list:
+        items:
+          $ref: '#/definitions/moderation_internal_delivery_packet.Packet'
+        type: array
+    required:
+    - list
+    type: object
+  user.CreateUserRequest:
+    properties:
+      created_at:
+        type: string
+      deputy:
+        items:
+          type: integer
+        type: array
+      enabled:
+        type: boolean
+      id:
+        type: integer
+      login:
+        type: string
+      modified_at:
+        type: string
+      name:
+        type: string
+      pass:
+        type: string
+      role:
+        type: string
+      surname:
+        type: string
+    type: object
+  user.UpdateUserRequest:
+    properties:
+      created_at:
+        type: string
+      deputy:
+        items:
+          type: integer
+        type: array
+      enabled:
+        type: boolean
+      login:
+        type: string
+      modified_at:
+        type: string
+      name:
+        type: string
+      pass:
+        type: string
+      role:
+        type: string
+      surname:
+        type: string
+    type: object
+  user.UserResponse:
+    properties:
+      created_at:
+        type: string
+      deputy:
+        items:
+          type: integer
+        type: array
+      enabled:
+        type: boolean
+      id:
+        type: integer
+      login:
+        type: string
+      modified_at:
+        type: string
+      name:
+        type: string
+      pass:
+        type: string
+      role:
+        type: string
+      surname:
+        type: string
+    type: object
+info:
+  contact:
+    email: kanya384@mail.ru
+    name: API Support
+  description: hr-report backend
+  license:
+    name: kanya384
+  title: hr-report backend
+  version: "1.0"
+paths:
+  /amocrm/auth:
+    get:
+      consumes:
+      - application/json
+      description: Редирект на страницу авторизации приложения в амо.
+      parameters:
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: query
+        name: client_id
+        required: true
+        type: string
+      - in: query
+        name: code
+        required: true
+        type: string
+      - in: query
+        name: referer
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "307":
+          description: Temporary Redirect
+      summary: Редирект на страницу авторизации приложения в амо.
+      tags:
+      - integration
+  /amocrm/code:
+    get:
+      consumes:
+      - application/json
+      description: Получаем код авторизации из oauth и обновляем или создаем интеграцию.
+      parameters:
+      - description: Project ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - in: query
+        name: client_id
+        required: true
+        type: string
+      - in: query
+        name: code
+        required: true
+        type: string
+      - in: query
+        name: referer
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: Получаем код авторизации из oauth и обновляем или создаем интеграцию.
+      tags:
+      - integration
+  /api/amofile/:
+    get:
+      consumes:
+      - application/json
+      description: получить список файлов амо.
+      parameters:
+      - description: Начальный индекс
+        in: query
+        name: offset
+        type: integer
+      - description: Лимит
+        in: query
+        name: limit
+        type: integer
+      - description: параметры для сортировки, пример (created_at:+;modified_at:-)
+        in: query
+        name: sorting
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/amofile.AmoFileListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить список файлов амо.
+      tags:
+      - amofile
+  /api/amofile/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: удалить afqk
+      parameters:
+      - description: Идентификатор файла
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: удалить afqk
+      tags:
+      - amofile
+    get:
+      consumes:
+      - application/json
+      description: получить список файлов амо.
+      parameters:
+      - description: Идентификатор файла
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/amofile.AmoFileListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить список файлов амо.
+      tags:
+      - amofile
+    post:
+      consumes:
+      - multipart/form-data
+      description: создание файла для амо.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Файл для амо
+        in: formData
+        items:
+          type: file
+        name: file
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            items:
+              $ref: '#/definitions/amofile.AmoFileResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: создание файла для амо.
+      tags:
+      - amofile
+  /api/amofile/mass:
+    delete:
+      consumes:
+      - application/json
+      description: массовое удаление файлов
+      parameters:
+      - description: Данные о решение модератора
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/amofile.MassDeleteRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/amofile.MassDeleteResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: массовое удаление файлов
+      tags:
+      - amofile
+  /api/auth/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: авторизация пользователя.
+      parameters:
+      - description: Данные для аутентификации
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/auth.SignInRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/moderation_internal_delivery_auth.SignInResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: авторизация пользователя.
+      tags:
+      - auth
+  /api/cause/:
+    get:
+      consumes:
+      - application/json
+      description: получить список всех причин.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/cause.CauseResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить список всех причин.
+      tags:
+      - causes
+    post:
+      consumes:
+      - application/json
+      description: создание списка причин.
+      parameters:
+      - description: Данные пользователя
+        in: body
+        name: cause
+        required: true
+        schema:
+          $ref: '#/definitions/cause.CreateCauseRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cause.CauseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: создание списка причин.
+      tags:
+      - causes
+  /api/cause/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: удалить причины
+      parameters:
+      - description: Идентификатор причины
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cause.CauseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: удалить причины
+      tags:
+      - causes
+    get:
+      consumes:
+      - application/json
+      description: получить причины по id.
+      parameters:
+      - description: Идентификатор причины
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cause.CauseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить причины по id.
+      tags:
+      - causes
+    put:
+      consumes:
+      - application/json
+      description: обновление списка причин.
+      parameters:
+      - description: Идентификатор пользователя
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Данные для обновления пользователя
+        in: body
+        name: cause
+        required: true
+        schema:
+          $ref: '#/definitions/cause.UpdateCauseRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cause.CauseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: обновление списка причин.
+      tags:
+      - causes
+  /api/cause/lead/{id}:
+    get:
+      consumes:
+      - application/json
+      description: получить причины по id  лида.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/cause.CauseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить причины по id лида.
+      tags:
+      - causes
+  /api/cause/packet/{key}/{id}:
+    post:
+      consumes:
+      - application/json
+      description: получить причины для пакета.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Api ключ
+        in: path
+        name: key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить причины для пакета.
+      tags:
+      - causes
+  /api/city:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список  городов портала.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/city.CityListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Возвращает список  городов портала.
+      tags:
+      - city
+  /api/client:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список клиентов.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/client.ClientListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Возвращает список клиентов.
+      tags:
+      - client
+  /api/lead/:
+    get:
+      consumes:
+      - application/json
+      description: получить отфильтрованный список лидов.
+      parameters:
+      - description: id клиента
+        in: query
+        name: client
+        type: integer
+      - description: id менеджера
+        in: query
+        name: managerId
+        type: integer
+      - description: статус лида
+        in: query
+        name: status
+        type: string
+      - description: id города
+        in: query
+        name: cityId
+        type: integer
+      - description: пакет лида
+        in: query
+        name: packet
+        type: string
+      - description: дата передачи лида от
+        in: query
+        name: transferDateFrom
+        type: string
+      - description: дата передачи лида по
+        in: query
+        name: transferDateTo
+        type: string
+      - description: Начальный индекс
+        in: query
+        name: offset
+        type: integer
+      - description: Лимит
+        in: query
+        name: limit
+        type: integer
+      - description: параметры для сортировки, пример (created_at:+;modified_at:-)
+        in: query
+        name: sorting
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lead.LeadListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить отфильтрованный список лидов.
+      tags:
+      - leads
+  /api/lead/{id}:
+    get:
+      consumes:
+      - application/json
+      description: получить лид по id.
+      parameters:
+      - description: Id лида
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lead.LeadResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить лид по id.
+      tags:
+      - leads
+  /api/lead/annul/{id}:
+    put:
+      consumes:
+      - application/json
+      description: анулировать лид.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lead.LeadResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: анулировать лид.
+      tags:
+      - leads
+  /api/lead/client-cause/{id}:
+    put:
+      consumes:
+      - application/json
+      description: редактирование причины клиента.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Данные о причине клиента
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/lead.ClientCauseEdit'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lead.LeadResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: редактирование причины клиента.
+      tags:
+      - leads
+  /api/lead/csv:
+    get:
+      consumes:
+      - application/json
+      description: получить отфильтрованный список лидов  в csv.
+      parameters:
+      - description: id клиента
+        in: query
+        name: client
+        type: integer
+      - description: id менеджера
+        in: query
+        name: managerId
+        type: integer
+      - description: статус лида
+        in: query
+        name: status
+        type: string
+      - description: id города
+        in: query
+        name: cityId
+        type: integer
+      - description: пакет лида
+        in: query
+        name: packet
+        type: string
+      - description: дата передачи лида от
+        in: query
+        name: transferDateFrom
+        type: string
+      - description: дата передачи лида по
+        in: query
+        name: transferDateTo
+        type: string
+      - description: параметры для сортировки, пример (created_at:+;modified_at:-)
+        in: query
+        name: sorting
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lead.FileResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить отфильтрованный список лидов в csv.
+      tags:
+      - leads
+  /api/lead/decision/{id}:
+    put:
+      consumes:
+      - application/json
+      description: решение модератора.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Данные о решение модератора
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/lead.ModeratorDecision'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lead.LeadResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: решение модератора.
+      tags:
+      - leads
+  /api/lead/exchange-on-zero/{id}:
+    put:
+      consumes:
+      - application/json
+      description: замена на 0.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lead.LeadResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: замена на 0.
+      tags:
+      - leads
+  /api/lead/finalize/{id}:
+    put:
+      consumes:
+      - application/json
+      description: решение модератора.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lead.LeadResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: решение модератора.
+      tags:
+      - leads
+  /api/lead/moderator/{id}:
+    put:
+      consumes:
+      - application/json
+      description: установить модератора для лида.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Данные о решение модератора
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/lead.SetModeratorRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lead.LeadResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: установить модератора для лида.
+      tags:
+      - leads
+  /api/lead/reject/{id}:
+    put:
+      consumes:
+      - application/json
+      description: отклонить лид.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/lead.LeadResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: отклонить лид.
+      tags:
+      - leads
+  /api/lead/status:
+    get:
+      consumes:
+      - application/json
+      description: получить список статусов лида.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/lead.ItemDescription'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить список статусов лида.
+      tags:
+      - leads
+  /api/manager:
+    get:
+      consumes:
+      - application/json
+      description: получить список всех менеджеров.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.UserResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить список всех менеджеров.
+      tags:
+      - managers
+  /api/moderator:
+    get:
+      consumes:
+      - application/json
+      description: получить список всех модераторов.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.UserResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить список всех модераторов.
+      tags:
+      - managers
+  /api/packet:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список  городов портала.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/packet.PacketListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Возвращает список  городов портала.
+      tags:
+      - packet
+  /api/user/:
+    get:
+      consumes:
+      - application/json
+      description: получить список всех источников.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/user.UserResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить список всех пользователей.
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: создание пользователя.
+      parameters:
+      - description: Данные пользователя
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: создание пользователя.
+      tags:
+      - users
+  /api/user/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: удалить пользователя
+      parameters:
+      - description: Идентификатор пользователя
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: удалить пользователя
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: получить платеж по id.
+      parameters:
+      - description: Идентификатор платежа
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: получить платеж по id.
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: обновление пользователя.
+      parameters:
+      - description: Идентификатор пользователя
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Данные для обновления пользователя
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/user.UpdateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.UserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: обновление пользователя.
+      tags:
+      - users
+  /api/widget/kc/{key}/{id}:
+    post:
+      consumes:
+      - application/json
+      description: отправить на прозвон в КЦ.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Api ключ
+        in: path
+        name: key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: отправить на прозвон в КЦ.
+      tags:
+      - widget
+  /api/widget/lead/{key}/{id}:
+    post:
+      consumes:
+      - application/json
+      description: есть ли лид в системе.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Api ключ
+        in: path
+        name: key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: есть ли лид в системе.
+      tags:
+      - widget
+  /api/widget/moderation/{key}/{id}:
+    post:
+      consumes:
+      - application/json
+      description: отправить на модерацию.
+      parameters:
+      - description: Идентификатор лида
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Api ключ
+        in: path
+        name: key
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/delivery.ErrorResponse'
+      summary: отправить на модерацию.
+      tags:
+      - widget
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
