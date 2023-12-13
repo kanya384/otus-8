@@ -76,5 +76,14 @@ func (d DateTime) IsNil() bool {
 }
 
 func (d DateTime) ToString() string {
-	return fmt.Sprintf("%d:%d", d.hour, d.minute)
+	var result string
+	if d.hour < 10 {
+		result = "0"
+	}
+	result += strconv.Itoa(d.hour) + ":"
+	if d.minute < 10 {
+		result += "0"
+	}
+	result += strconv.Itoa(d.minute)
+	return result
 }
