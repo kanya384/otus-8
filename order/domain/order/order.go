@@ -164,10 +164,19 @@ func UnmarshalOrderFromDatabase(
 	if err != nil {
 		return nil, err
 	}
-	order, err := NewOrder(UUID, CustomerName, DeliveryAddress, orderItems, PaymentUUID, startTime, endTime)
-	if err != nil {
-		return nil, err
-	}
 
-	return order, nil
+	return &Order{
+		uuid:                        UUID,
+		customerName:                CustomerName,
+		orderItems:                  orderItems,
+		stockReservationDone:        StockReservationDone,
+		paymentUUID:                 PaymentUUID,
+		paymentChecked:              PaymentChecked,
+		deliveryAddress:             DeliveryAddress,
+		comfortaleDeliveryTimeStart: startTime,
+		comfortaleDeliveryTimeEnd:   endTime,
+		deliverySlotReserved:        DeliverySlotReserved,
+		finalized:                   Finalized,
+		failed:                      Failed,
+	}, nil
 }
