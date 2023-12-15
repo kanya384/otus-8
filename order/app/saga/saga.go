@@ -92,7 +92,7 @@ func (s OrderSaga) OnOrderProductsReserved(ctx context.Context, evt *StockProduc
 	return err
 }
 
-func (s OrderSaga) OnOrderProductsReserveFaile(ctx context.Context, event *StockProductsReserveFailed_v1) error {
+func (s OrderSaga) OnOrderProductsReserveFailed(ctx context.Context, event *StockProductsReserveFailed_v1) error {
 	err := s.repository.UpdateOrder(ctx, event.OrderUUID, func(ctx context.Context, or *order.Order) (*order.Order, error) {
 		or.ProductsReservedFailedOnStock()
 		err := s.rollbackProcess(ctx, event.OrderUUID)
