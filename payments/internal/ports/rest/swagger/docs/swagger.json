@@ -1,0 +1,229 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "hr-report backend",
+        "title": "hr-report backend",
+        "contact": {
+            "name": "API Support",
+            "email": "kanya384@mail.ru"
+        },
+        "license": {
+            "name": "kanya384"
+        },
+        "version": "1.0"
+    },
+    "basePath": "/",
+    "paths": {
+        "/api/order": {
+            "post": {
+                "description": "создать заказ.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orders"
+                ],
+                "summary": "создать заказ.",
+                "parameters": [
+                    {
+                        "description": "Данные для создания продукта",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/order.CreateOrderRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/order.OrderResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/order/{id}": {
+            "get": {
+                "description": "получить заказ по id.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "orders"
+                ],
+                "summary": "получить заказ по id.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Идентификатор заказа",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/order.OrderResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/rest.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "order.CreateOrderRequest": {
+            "type": "object",
+            "required": [
+                "comfortale_delivery_time_end",
+                "comfortale_delivery_time_start",
+                "customer_name",
+                "delivery_address",
+                "order_items",
+                "payment_uuid"
+            ],
+            "properties": {
+                "comfortale_delivery_time_end": {
+                    "type": "string",
+                    "example": "11:30"
+                },
+                "comfortale_delivery_time_start": {
+                    "type": "string",
+                    "example": "10:00"
+                },
+                "customer_name": {
+                    "type": "string",
+                    "example": "Vasiliy Petrov"
+                },
+                "delivery_address": {
+                    "type": "string",
+                    "example": "st. Krasnaya 10"
+                },
+                "order_items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/order_internal_ports_rest_order.OrderItem"
+                    }
+                },
+                "payment_uuid": {
+                    "type": "string",
+                    "example": "f9d62750-9d9d-11ee-8c90-0242ac120002"
+                }
+            }
+        },
+        "order.OrderResponse": {
+            "type": "object",
+            "required": [
+                "comfortale_delivery_time_end",
+                "comfortale_delivery_time_start"
+            ],
+            "properties": {
+                "comfortale_delivery_time_end": {
+                    "type": "string"
+                },
+                "comfortale_delivery_time_start": {
+                    "type": "string"
+                },
+                "customer_name": {
+                    "type": "string"
+                },
+                "delivery_address": {
+                    "type": "string"
+                },
+                "delivery_slot_reserved": {
+                    "type": "boolean"
+                },
+                "failed": {
+                    "type": "boolean"
+                },
+                "finalized": {
+                    "type": "boolean"
+                },
+                "order_items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/order_internal_ports_rest_order.OrderItem"
+                    }
+                },
+                "payment_checked": {
+                    "type": "boolean"
+                },
+                "payment_uuid": {
+                    "type": "string"
+                },
+                "stock_reservation_done": {
+                    "type": "boolean"
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "order_internal_ports_rest_order.OrderItem": {
+            "type": "object",
+            "properties": {
+                "price": {
+                    "type": "integer",
+                    "example": 123
+                },
+                "product_uuid": {
+                    "type": "string",
+                    "example": "0194e35a-9d9e-11ee-8c90-0242ac120002"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "example": 2
+                }
+            }
+        },
+        "rest.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

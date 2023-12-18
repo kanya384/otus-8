@@ -1,0 +1,155 @@
+basePath: /
+definitions:
+  order.CreateOrderRequest:
+    properties:
+      comfortale_delivery_time_end:
+        example: "11:30"
+        type: string
+      comfortale_delivery_time_start:
+        example: "10:00"
+        type: string
+      customer_name:
+        example: Vasiliy Petrov
+        type: string
+      delivery_address:
+        example: st. Krasnaya 10
+        type: string
+      order_items:
+        items:
+          $ref: '#/definitions/order_internal_ports_rest_order.OrderItem'
+        type: array
+      payment_uuid:
+        example: f9d62750-9d9d-11ee-8c90-0242ac120002
+        type: string
+    required:
+    - comfortale_delivery_time_end
+    - comfortale_delivery_time_start
+    - customer_name
+    - delivery_address
+    - order_items
+    - payment_uuid
+    type: object
+  order.OrderResponse:
+    properties:
+      comfortale_delivery_time_end:
+        type: string
+      comfortale_delivery_time_start:
+        type: string
+      customer_name:
+        type: string
+      delivery_address:
+        type: string
+      delivery_slot_reserved:
+        type: boolean
+      failed:
+        type: boolean
+      finalized:
+        type: boolean
+      order_items:
+        items:
+          $ref: '#/definitions/order_internal_ports_rest_order.OrderItem'
+        type: array
+      payment_checked:
+        type: boolean
+      payment_uuid:
+        type: string
+      stock_reservation_done:
+        type: boolean
+      uuid:
+        type: string
+    required:
+    - comfortale_delivery_time_end
+    - comfortale_delivery_time_start
+    type: object
+  order_internal_ports_rest_order.OrderItem:
+    properties:
+      price:
+        example: 123
+        type: integer
+      product_uuid:
+        example: 0194e35a-9d9e-11ee-8c90-0242ac120002
+        type: string
+      quantity:
+        example: 2
+        type: integer
+    type: object
+  rest.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact:
+    email: kanya384@mail.ru
+    name: API Support
+  description: hr-report backend
+  license:
+    name: kanya384
+  title: hr-report backend
+  version: "1.0"
+paths:
+  /api/order:
+    post:
+      consumes:
+      - application/json
+      description: создать заказ.
+      parameters:
+      - description: Данные для создания продукта
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/order.CreateOrderRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/order.OrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: создать заказ.
+      tags:
+      - orders
+  /api/order/{id}:
+    get:
+      consumes:
+      - application/json
+      description: получить заказ по id.
+      parameters:
+      - description: Идентификатор заказа
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/order.OrderResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/rest.ErrorResponse'
+      summary: получить заказ по id.
+      tags:
+      - orders
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
